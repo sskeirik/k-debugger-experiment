@@ -24,7 +24,8 @@ The included semantics are:
 ## Prerequisites
 
 **Building:** You will need a K installation as well as GNU `make` with the `kompile` and `make` binaries on your `PATH`.  
-**Running** You will need a K installation with the `krun` binary on your `PATH`.
+
+**Running:** You will need a K installation with the `krun` binary on your `PATH`.
 
 ## Building
 
