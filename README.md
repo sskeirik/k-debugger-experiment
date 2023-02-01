@@ -10,7 +10,9 @@ Input programs to base have the form:
 Int ; IntList ; Expression
 ```
 
-where `Int` is a step count, `IntList` is a breakpoint set, and `Expression` is the program to be executed.
+where `Int` is a step count, `IntList` is a breakpoint set (given as a set of line numbers starting from `1`), and `Expression` is the program to be executed.
+
+**NB:** In this simple PL, since a file cannot recursively load code from another file, we do not need to discriminate locations using filenames --- line numbers are sufficient.
 
 The included semantics are:
 
