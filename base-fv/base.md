@@ -33,8 +33,8 @@ module BASE
 
   rule <k> #+(#i(N:Int), #i(M:Int)) => N +Int M ... </k>
 
-  rule <k> #loop( Iter,  E) => E ~> loop(Iter -Int 1, E) ... </k> requires Iter >Int 0
-  rule <k> #loop(_Iter, _E) => 0                         ... </k> [owise]
+  rule <k> #loop( Iter,  E) => E ~> #loop(Iter -Int 1, E) ... </k> requires Iter >Int 0
+  rule <k> #loop(_Iter, _E) => 0                          ... </k> [owise]
 
   rule <k> _V:Value ~> #loop( Iter,  E) => #loop(Iter, E) ... </k> requires Iter >Int 0
   rule <k>  V:Value ~> #loop(_Iter, _E) =>  V             ... </k> [owise]
