@@ -1,15 +1,18 @@
-# K Debugger Experiments
+# K Language-Specific Debugger Experiments
 
 This repository contains a very simple PL semantics called _Base_.
 
-Then several extensions of _Base_ are developed to facilitate/simulate a language-level debugger being built on top of _Base_.
+Then several extensions of _Base_ are developed to facilitate/simulate building a language-level debugger on top of _Base_.
+
+**NOTE:** Here we are _only_ interested in _language-specific_ debuggers which can debug programs executed by K-defined interpreters (in this case, `.base` files).
+That is, we are _not_ considering how to debug K specifications  themselves (typically, `.k` files).
 
 ## Experiment Design
 
 Typically, when people run a debugger, they have an interactive command-line REPL or GUI where they can:
 
 -   execute their program for `N` steps and;
--   set breakpoints on lines of code in various files so that execution will pause when a breakpoint line is reached.
+-   set breakpoints on specific lines of code in input files so that execution pauses when a breakpoint line is reached.
 
 To avoid developing a full blown REPL for this simple experiment, we instead let _Base_ programs have the form:
 
@@ -17,7 +20,7 @@ To avoid developing a full blown REPL for this simple experiment, we instead let
 Int ; IntList ; Expression
 ```
 
-where `Int` is a step count, `IntList` is a breakpoint set (given as a set of line numbers starting from `1`), and `Expression` is the program to be executed.
+where `Int` is a step count, `IntList` is a breakpoint set (given as a set of line numbers from the input `.base` file starting from `1`), and `Expression` is the program to be executed.
 This design simulates a user entering a step count and/or breakpoint set into a REPL.
 
 **NOTE:** In this simple PL, since a file cannot recursively load code from another file, we do not need to discriminate locations using filenames --- line numbers are sufficient.
