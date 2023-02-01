@@ -20,7 +20,10 @@ Int ; IntList ; Expression
 where `Int` is a step count, `IntList` is a breakpoint set (given as a set of line numbers starting from `1`), and `Expression` is the program to be executed.
 This design simulates a user entering a step count and/or breakpoint set into a REPL.
 
-**NB:** In this simple PL, since a file cannot recursively load code from another file, we do not need to discriminate locations using filenames --- line numbers are sufficient.
+**NOTE:** In this simple PL, since a file cannot recursively load code from another file, we do not need to discriminate locations using filenames --- line numbers are sufficient.
+
+**NOTE:** One weakness of the experiment design is that we cannot directly continue execution from a debugger-paused state because that requires modifying the configuration.
+We may address that later by adding a script to facilitate _resetting_ the configuration state from a paused state to a standard state.
 
 The included semantics in this experiment are:
 
