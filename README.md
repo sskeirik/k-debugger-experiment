@@ -11,7 +11,7 @@ Typically, when people run a debugger, they have an interactive command-line REP
 -   execute their program for `N` steps and;
 -   set breakpoints on lines of code in various files so that execution will pause when a breakpoint line is reached.
 
-To avoid developing a full blown REPL for this simple experiment, we instead let input programs to base have the form:
+To avoid developing a full blown REPL for this simple experiment, we instead let _Base_ programs have the form:
 
 ```
 Int ; IntList ; Expression
