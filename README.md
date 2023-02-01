@@ -57,3 +57,19 @@ It is instructive to experiment with the following as you run your _Base_ progra
 1.  try changing the step counter in your program to see how that affects when the program terminates
 2.  try changing the breakpoint set in your program to see how that affects when the program terminates
 3.  finally, you can use the `krun` option `--depth N` to set the maximum number of K rules that the interpreter will apply (this counter is separate from the step counter in a _Base_ program) to explore VM internal states
+
+### Running an Example
+
+To run an included example program in the `/examples` folder, you can do the following:
+
+```
+$ cd base-x
+$ krun ../examples/<example-name>.base
+```
+
+For a more concrete example, you may try:
+
+```
+$ cd base-ra-bp
+$ krun ../examples/bp-test.base
+```
