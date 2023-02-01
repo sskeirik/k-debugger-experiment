@@ -24,15 +24,16 @@ module BASE
   import K-EQUAL
   import SET
 
-  syntax Exp       ::= Value
-  syntax Value     ::= Int
+  syntax Exp     ::= Value
+  syntax Value   ::= Int
   syntax KResult ::= Value
+  syntax Range   ::= #Range(Int, Int)
+                   | "#NoRange"
 
   configuration <k> $PGM:Pgm </k>
                 <stepCount> 0 </stepCount>
                 <breakPoints> .Set </breakPoints>
-                <enabled> true </enabled>
-                <loc> -1 </loc>
+                <loc> #NoRange </loc>
 
   rule <k> (Count:Int ; BPs:IntList ; E:Exp):Pgm => #step() ~> E </k>
        <stepCount> _ => Count </stepCount>
@@ -51,10 +52,10 @@ module BASE
 
   syntax Bool ::= #enabled() [function]
   // ----------------------------------
-  rule [[ #enabled() => Count =/=Int 0 andBool (notBool L in BPs) ]]
+  rule [[ #enabled() => Count =/=Int 0 andBool notBool anyInRange(L, BPs) ]]
        <stepCount> Count </stepCount>
        <breakPoints> BPs </breakPoints>
-       <loc> L:Int </loc>
+       <loc> L </loc>
 
   syntax KItem ::= #step()
   // ---------------------
@@ -63,12 +64,35 @@ module BASE
 
   //////////////////////////////////////
 
+  rule <k> #location(E:Exp, _, StartLine:Int, _, EndLine:Int, _)
+        => E
+        ~> #resetLoc(OldLoc)
+           ...
+       </k>
+       <loc> OldLoc => #Range(StartLine, EndLine) </loc>
+       <breakPoints> BPs </breakPoints>
+    requires isValue(E) orBool notBool anyInRange(#Range(StartLine, EndLine), BPs)
+
   syntax Set ::= IntList2Set(IntList) [function, total]
   // --------------------------------------------------
   rule IntList2Set(I IL)     => SetItem(I) |Set IntList2Set(IL)
   rule IntList2Set(.IntList) => .Set
 
-  rule <k> #location(E:Exp, _, StartLine:Int, _, _, _) => E ... </k>
-       <loc> _ => StartLine </loc>
+  syntax Bool ::= inRange(Range, Int) [function, total]
+  // --------------------------------------------------
+  rule inRange(#NoRange,     _:Int) => false
+  rule inRange(#Range(S, E), BP   ) => S <=Int BP andBool BP <=Int E
+
+  syntax Bool ::= anyInRange(Range, Set) [function]
+  // ----------------------------------------------
+  rule anyInRange(#NoRange,           _:Set          ) => false
+  rule anyInRange(_,                  .Set           ) => false
+  rule anyInRange(#Range(_, _) #as R, SetItem(BP) BPs) => inRange(R, BP) orElseBool anyInRange(R, BPs)
+
+  syntax KItem ::= #resetLoc(Range)
+  // ------------------------------
+  rule <k> V:Value ~> #resetLoc(OldLoc) => V ... </k>
+       <loc> _ => OldLoc </loc>
+
 endmodule
 ```
