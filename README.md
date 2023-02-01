@@ -18,3 +18,17 @@ The included semantics are:
 -   base-fv    - extends base with support for counting steps via the _first visit_ strategy
 -   base-ra    - extends base with support for counting steps via the _rule application_ strategy
 -   base-ra-bp - extends base-ra with support setting breakpoints
+
+# Installation
+
+## Prerequisites
+
+To build the examples, you will need a K installation as well as GNU `make` with the `kompile` and `make` binaries on your `PATH` 
+
+## Building
+
+After installing the prerequisites, build by running `make`, i.e.,
+
+```
+$ make
+```
