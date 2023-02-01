@@ -21,6 +21,23 @@ The included semantics are:
 -   base-ra    - extends base with support for counting steps via the _rule application_ strategy
 -   base-ra-bp - extends base-ra with support setting breakpoints
 
+# Base Definition
+
+_Base_ is a very simple language with 4 types of expressions:
+
+-   addition expressions, e.g., `3 + 4`
+-   integer expressions, e.g., `-2` or `15000`
+-   parenthetical expressions (used for associating subexpressions), e.g., `( 1 + 2 )`
+-   loop expressions, e.g., to loop 3 times and execute the expression `3 + 4`, one would write: `loop(3, 3 + 4)`
+
+Each kind of expression produces a integer result value:
+
+-   addition expressions produces their summation as a result
+-   integer expressions produce themselves as a result
+-   parenthetical expressions produce the value of their inner expression as a result
+-   loop expressions produce `0` as their result when the loop body is never executed;
+    otherwise, they produce the result of the last iteration of their body expression as a result
+
 # Installation
 
 ## Prerequisites
